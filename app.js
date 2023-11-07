@@ -1,6 +1,7 @@
 'use strict';
 
-let activeProducts = []
+Product.activeProducts = [];
+
 const products = [];
 let leftProductInstance = null;
 let centerProductInstance = null;
@@ -20,6 +21,8 @@ function Product(name, src) {
     this.src = src;
     this.views = 0;
     this.clicks = 0;
+
+    Product.activeProducts.push(this);
 }
 
 let bag = new Product('Bag Product', './img/bag.jpg');
@@ -81,17 +84,17 @@ function renderProducts() {
     // Show 1st product img
     // Show 2nd product img
     // Show 3rd product img
-if(activeProducts.length <= 1) {
-    activeProducts = products.slice();
-    shuffleArray(activeProducts);
+if(Product.activeProducts.length <= 1) {
+    Product.activeProducts = products.slice();
+    shuffleArray(Product.activeProducts);
 }
-    leftProductInstance = activeProducts.pop(); //retrives and removes last item
+    leftProductInstance = Product.activeProducts.pop(); //retrives and removes last item
     leftProduct.setAttribute('src', leftProductInstance.src);
 
-    centerProductInstance = activeProducts.pop();
+    centerProductInstance = Product.activeProducts.pop();
     centerProduct.setAttribute('src', centerProductInstance.src);
 
-    rightProductInstance = activeProducts.pop();
+    rightProductInstance = Product.activeProducts.pop();
     rightProduct.setAttribute('src', rightProductInstance.src);
 
     leftProductInstance.views += 1;
@@ -135,8 +138,8 @@ rightProduct.addEventListener('click', handleRightProduct);
 renderProducts();
 
 function renderResults() {
-    for(let i=0; i<activeProducts.length; i++) {
-      const thisProduct = products[i];
+    for(let i=0; i<Product.activeProducts.length; i++) {
+      const thisProduct = Product.activeProducts[i];
       const result = `${thisProduct.name} had ${thisProduct.views} views and was clicked ${thisProduct.clicks} times.`;
       // console.log(result);
       const liElem = document.createElement('li');
