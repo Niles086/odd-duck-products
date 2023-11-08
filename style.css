@@ -1,4 +1,35 @@
+.results {
+    position: relative;
+    left: 400px;
+    }
+
 .product-img {
-    width: 600px;
-    height: 400px;
-  }
+    position: relative;
+    margin: 18px;
+    left: 400px;
+     width: 450px;
+    height: 300px;
+    box-shadow: 20px 10px 5px rgba(0, 0, 0, 1);
+    /* Replace the values as needed: got from chatGPT
+       - The first value (5px) is the horizontal offset of the shadow.
+       - The second value (5px) is the vertical offset of the shadow.
+       - The third value (10px) is the blur radius of the shadow.
+       - rgba(0, 0, 0, 0.5) defines the shadow color and opacity. */
+     }
+     .voting-results {
+        list-style: none;
+     }
+    #votingChart {
+        max-width: 70%;
+        max-height: 400px;
+    }
+  header {
+        background-color: rgb(211, 20, 13);
+        padding: 10px;
+   }
+   footer {
+
+    background-color: rgb(218, 8, 8);
+    padding: 20px;
+    text-align: center;
+   }

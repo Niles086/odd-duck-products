@@ -85,7 +85,7 @@ function renderProducts() {
     // Show 2nd product img
     // Show 3rd product img
 if(Product.activeProducts.length <= 1) {
-    Product.activeProducts = products.slice();
+    Product.activeProducts =[...products];
     shuffleArray(Product.activeProducts);
 }
     leftProductInstance = Product.activeProducts.pop(); //retrives and removes last item
@@ -135,15 +135,52 @@ leftProduct.addEventListener('click', handleLeftProduct);
 centerProduct.addEventListener('click', handleCenterProduct);
 rightProduct.addEventListener('click', handleRightProduct);
 
-renderProducts();
 
 function renderResults() {
-    for(let i=0; i<Product.activeProducts.length; i++) {
-      const thisProduct = Product.activeProducts[i];
-      const result = `${thisProduct.name} had ${thisProduct.views} views and was clicked ${thisProduct.clicks} times.`;
-      // console.log(result);
-      const liElem = document.createElement('li');
-      ulElem.appendChild(liElem);
-      liElem.textContent = result;
+    const labels = [];
+    const votesData = [];
+    const viewsData = [];
+
+    for (let i = 0; i < Product.activeProducts.length; i++) {
+        const thisProduct = Product.activeProducts[i];
+        labels.push(thisProduct.name);
+        votesData.push(thisProduct.clicks);
+        viewsData.push(thisProduct.views);
     }
-  }
+
+    
+    const ctx = document.getElementById('votingChart').getContext('2d');
+
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Votes',
+                    data: votesData,
+                    backgroundColor: 'rgba(245, 0, 0, 0.8)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Views',
+                    data: viewsData,
+                    backgroundColor: 'rgba(22, 124, 158, 0.8)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+}
+
+// Call renderResults after data collection
+// renderResults();
