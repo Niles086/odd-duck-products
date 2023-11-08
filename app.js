@@ -44,7 +44,7 @@ let tauntaun = new Product('Tauntaun Product', './img/tauntaun.jpg');
 let unicorn = new Product('Unicorn Product', './img/unicorn.jpg');
 let watercan = new Product('Water-can Product', './img/watercan.jpg');
 let wineglass = new Product('Wine-glass Product', './img/wineglass.jpg');
-console.log('Initial products', Product.activeProducts.length)
+
 // products = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, watercan, wineglass]
 
 products.push(bag)
@@ -66,7 +66,7 @@ products.push(tauntaun)
 products.push(unicorn)
 products.push(watercan)
 products.push(wineglass)
-console.log()
+
 
 renderProducts();
 
@@ -137,8 +137,7 @@ rightProduct.addEventListener('click', handleRightProduct);
 
 
 function renderResults() {
-    console.log('product length', Product.activeProducts.length)
-    const labels = [];
+        const labels = [];
     const votesData = [];
     const viewsData = [];
 
