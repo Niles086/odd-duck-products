@@ -16,11 +16,11 @@ const centerProduct = document.querySelector('section img:nth-child(2)');
 const rightProduct = document.querySelector('section img:nth-child(3)');
 
 
-function Product(name, src) {
+function Product(name, src, views = 0, clicks = 0) {
     this.name = name;
     this.src = src;
-    this.views = 0;
-    this.clicks = 0;
+    this.views = views;
+    this.clicks = clicks;
 
     Product.activeProducts.push(this);
 }
@@ -44,7 +44,7 @@ let tauntaun = new Product('Tauntaun Product', './img/tauntaun.jpg');
 let unicorn = new Product('Unicorn Product', './img/unicorn.jpg');
 let watercan = new Product('Water-can Product', './img/watercan.jpg');
 let wineglass = new Product('Wine-glass Product', './img/wineglass.jpg');
-
+console.log('Initial products', Product.activeProducts.length)
 // products = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, watercan, wineglass]
 
 products.push(bag)
@@ -66,7 +66,7 @@ products.push(tauntaun)
 products.push(unicorn)
 products.push(watercan)
 products.push(wineglass)
-
+console.log()
 
 renderProducts();
 
@@ -137,12 +137,13 @@ rightProduct.addEventListener('click', handleRightProduct);
 
 
 function renderResults() {
+    console.log('product length', Product.activeProducts.length)
     const labels = [];
     const votesData = [];
     const viewsData = [];
 
-    for (let i = 0; i < Product.activeProducts.length; i++) {
-        const thisProduct = Product.activeProducts[i];
+    for (let i = 0; i < products.length; i++) {
+        const thisProduct = products[i];
         labels.push(thisProduct.name);
         votesData.push(thisProduct.clicks);
         viewsData.push(thisProduct.views);
