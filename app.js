@@ -2,7 +2,7 @@
 
 Product.activeProducts = [];
 
-const products = [];
+let products = [];
 let leftProductInstance = null;
 let centerProductInstance = null;
 let rightProductInstance = null;
@@ -46,36 +46,45 @@ let watercan = new Product('Water-can Product', './img/watercan.jpg');
 let wineglass = new Product('Wine-glass Product', './img/wineglass.jpg');
 
 // products = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, watercan, wineglass]
+const savedProductData = localStorage.getItem('productsData');
+if (savedProductData) {
+    products = JSON.parse(savedProductData);
+    console.log('products', products)
+} else {
+    
+    products.push(bag)
+    products.push(banana)
+    products.push(bathroom)
+    products.push(boots)
+    products.push(breakfast)
+    products.push(bubblegum)
+    products.push(chair)
+    products.push(cthulhu)
+    products.push(dogduck)
+    products.push(dragon)
+    products.push(pen)
+    products.push(petsweep)
+    products.push(scissors)
+    products.push(shark)
+    products.push(sweep)
+    products.push(tauntaun)
+    products.push(unicorn)
+    products.push(watercan)
+    products.push(wineglass)
+    console.log('prodicts', products)
+}
+// Save the products array to local storage
+localStorage.setItem('productsData', JSON.stringify(products));
 
-products.push(bag)
-products.push(banana)
-products.push(bathroom)
-products.push(boots)
-products.push(breakfast)
-products.push(bubblegum)
-products.push(chair)
-products.push(cthulhu)
-products.push(dogduck)
-products.push(dragon)
-products.push(pen)
-products.push(petsweep)
-products.push(scissors)
-products.push(shark)
-products.push(sweep)
-products.push(tauntaun)
-products.push(unicorn)
-products.push(watercan)
-products.push(wineglass)
-
-
-renderProducts();
 
 function renderProducts() {
+    console.log('products', products);
     // set clicker max
     if(clicker == maxClicks) {
+        saveProductsToLocalStorage();
         //make view results clickable
         viewResults.addEventListener('click', viewResultsClick);
-
+        
         //dissable product clicking
         leftProduct.removeEventListener('click', handleLeftProduct);
         centerProduct.removeEventListener('click', handleCenterProduct);
@@ -84,34 +93,38 @@ function renderProducts() {
     // Show 1st product img
     // Show 2nd product img
     // Show 3rd product img
-if(Product.activeProducts.length <= 1) {
-    Product.activeProducts =[...products];
-    shuffleArray(Product.activeProducts);
-}
+    if(Product.activeProducts.length <= 1) {
+        Product.activeProducts =[...products];
+        shuffleArray(Product.activeProducts);
+    }
     leftProductInstance = Product.activeProducts.pop(); //retrives and removes last item
     leftProduct.setAttribute('src', leftProductInstance.src);
-
+    
     centerProductInstance = Product.activeProducts.pop();
     centerProduct.setAttribute('src', centerProductInstance.src);
-
+    
     rightProductInstance = Product.activeProducts.pop();
     rightProduct.setAttribute('src', rightProductInstance.src);
-
+    
+    
     leftProductInstance.views += 1;
     centerProductInstance.views += 1;
     rightProductInstance.views += 1;
+    // saveProductsToLocalStorage(); // Save products to local storage after the views are updated
 }
+renderProducts();
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1)); // Generate a random index from 0 to i
-      [array[i], array[j]] = [array[j], array[i]]; // Swap elements at i and j
+        const j = Math.floor(Math.random() * (i + 1)); // Generate a random index from 0 to i
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements at i and j
     }
-  }
+}
 
 function handleLeftProduct() {
     leftProductInstance.clicks += 1;
     clicker += 1;
+    console.log(leftProductInstance);
     renderProducts();
 }
 
@@ -126,10 +139,15 @@ function handleRightProduct() {
     clicker += 1;
     renderProducts();
 }
+
 function viewResultsClick() {
+    console.log('Products', products)
     renderResults();
-  }
-  
+}
+
+function saveProductsToLocalStorage() {
+    localStorage.setItem('productsData', JSON.stringify(products));
+}
 
 leftProduct.addEventListener('click', handleLeftProduct);
 centerProduct.addEventListener('click', handleCenterProduct);
